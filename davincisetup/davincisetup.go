@@ -68,6 +68,13 @@ func removeProblemLibraries() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	cmd := exec.Command("bash", "-c", "pwd")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(output))
+
 	for _, entry := range libraryArray {
 		cmd := exec.Command("bash", "-c", "sudo rm -f "+entry)
 		output, err := cmd.CombinedOutput()
