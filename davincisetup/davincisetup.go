@@ -25,7 +25,10 @@ func Main() {
 	}
 
 	launchInstaller(davinciFileName)
-	removeProblemLibraries()
+	err = removeProblemLibraries()
+	if err != nil {
+		fmt.Printf("Couldn't remove libraries. Error message %v", err)
+	}
 
 	fmt.Println("*****Setup Complete!!!*****")
 	fmt.Println("                                                ")
@@ -59,19 +62,19 @@ func checkPolkitAgentIsRunning() {
 	}
 }
 
-func removeProblemLibraries() {
+func removeProblemLibraries() error {
 
 	fmt.Println("")
 	var libraryArray = []string{"libglib-2.0*", "libgio-2.0*", "libgmodule-2.0*", "libgobject-2.0*"}
 
 	err := os.Chdir("/opt/resolve/libs")
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 	cmd := exec.Command("bash", "-c", "pwd")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 	fmt.Println(string(output))
 
@@ -85,6 +88,7 @@ func removeProblemLibraries() {
 	}
 
 	fmt.Println("Library tweaks completed! You should now be able to launch Resolve without any problems!")
+	return nil
 }
 
 func launchInstaller(filename string) {
