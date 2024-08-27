@@ -64,7 +64,10 @@ func removeProblemLibraries() {
 	fmt.Println("")
 	var libraryArray = []string{"libglib-2.0*", "libgio-2.0*", "libgmodule-2.0*", "libgobject-2.0*"}
 
-	os.Chdir("/opt/resolve/libs")
+	err := os.Chdir("/opt/resolve/libs")
+	if err != nil {
+		fmt.Println(err)
+	}
 	for _, entry := range libraryArray {
 		cmd := exec.Command("bash", "-c", "sudo rm -f "+entry)
 		output, err := cmd.CombinedOutput()
