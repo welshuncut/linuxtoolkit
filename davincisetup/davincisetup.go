@@ -67,7 +67,10 @@ func removeProblemLibraries() {
 	os.Chdir("/opt/resolve/libs")
 	for _, entry := range libraryArray {
 		cmd := exec.Command("bash", "-c", "sudo rm -f "+entry)
-		output, _ := cmd.CombinedOutput()
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Println(string(output))
+		}
 		fmt.Println(string(output))
 	}
 
