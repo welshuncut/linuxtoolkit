@@ -95,10 +95,10 @@ func launchInstaller(filename string) {
 	lenStr := len(filename)
 	newLen := lenStr - 3
 	filenameSlice := filename[:newLen]
-	fmt.Println("The Davinci Resolve installer should now show! Please install normally")
+	fmt.Println("Now installing DaVinci Resolve")
 	fmt.Println("Any following messages are from the Davinci installer, grep or qt warnings can be ignored")
 	fmt.Print("\n\n")
-	cmd := exec.Command("bash", "-c", "./"+filenameSlice+"run")
+	cmd := exec.Command("bash", "-c", "./"+filenameSlice+"run -iy")
 	output, _ := cmd.CombinedOutput()
 	fmt.Println(string(output))
 }

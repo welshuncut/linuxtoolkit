@@ -1,3 +1,3 @@
-module github.com/TrolleyTrampInc/LinuxToolKit
+module github.com/TrolleyTrampInc/linuxtoolkit
 
 go 1.23.0
