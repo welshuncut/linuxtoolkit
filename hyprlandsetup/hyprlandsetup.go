@@ -35,7 +35,7 @@ func updateSystem() {
 }
 
 func editPacmanConf() {
-	cmd := exec.Command("bash", "-c", "sudo ./hyprlandsetup/editPacmanConf.sh")
+	cmd := exec.Command("bash", "-c", "sudo .~/go/linuxtoolkit/hyprlandsetup/editPacmanConf.sh")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println(string(output))
