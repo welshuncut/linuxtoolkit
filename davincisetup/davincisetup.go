@@ -21,7 +21,7 @@ func Main() {
 
 	davinciFileName, err := lookForAndPrepareDavinciZip()
 	if err != nil {
-		panic("Unable to Continue")
+		panic(err)
 	}
 
 	launchInstaller(davinciFileName)
@@ -105,10 +105,11 @@ func launchInstaller(filename string) {
 
 func lookForAndPrepareDavinciZip() (fname string, err error) {
 	fmt.Println("Changing directory to $HOME/Downloads")
-	os.Chdir("~/Downloads")
+	os.Chdir("/home/alex/Downloads")
 	output := exec.Command("bash", "-c", "ls")
 	data, _ := output.CombinedOutput()
 	fname = extractFilename(data)
+	fmt.Println(fname)
 	if fname != "" {
 		fmt.Println("Unzipping DaVinci_Resolve_" + fname)
 		cmd := exec.Command("bash", "-c", "unzip -u "+fname)
@@ -122,12 +123,13 @@ func lookForAndPrepareDavinciZip() (fname string, err error) {
 }
 
 func extractFilename(data []byte) string {
-	re := regexp.MustCompile(`DaVinci_Resolve_[0-9]+(\.[0-9]+)*_Linux\.zip`)
+	re := regexp.MustCompile(`DaVinci_Resolve_([0-9]+(\.[0-9]+))_Linux\.zip`)
 	match := re.FindString(string(data))
 	if match != "" {
 		fmt.Println(match)
 		return match
 	}
+	fmt.Println(match)
 	return ""
 }
 
