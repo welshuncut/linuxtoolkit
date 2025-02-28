@@ -47,11 +47,14 @@ func editPacmanConf() {
 
 func installPackages() error {
 	fmt.Println("Installing base packages")
-	cmd := exec.Command("bash", "-c", "sudo pacman -S --noconfirm hyprland hyprpaper xdg-desktop-portal-hyprland polkit-gnome swaync wofi nautilus waybar gnome-console firefox gnu-free-fonts qt5-wayland qt6-wayland")
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		return err
+	var packages = []string{"hyprland", "hyprutils", "hyprgraphics", "hyprcursor", "hyprlang", "hyprpaper", "xdg-desktop-portal-hyprland", "polkit-gnome", "swaync", "wofi", "nautilus", "waybar", "gnome-console", "zen-browser-bin", "gnu-free-fonts", "qt5-wayland", "qt6-wayland"}
+	for _, packageName := range packages {
+		cmd := exec.Command("bash", "-c", "sudo pacman -S --noconfirm "+packageName)
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(output))
 	}
-	fmt.Println(string(output))
 	return nil
 }

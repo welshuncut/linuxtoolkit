@@ -67,6 +67,7 @@ func removeProblemLibraries() error {
 	fmt.Println("")
 	var libraryArray = []string{"libglib-2.0*", "libgio-2.0*", "libgmodule-2.0*", "libgobject-2.0*"}
 
+	fmt.Println("Programme must be launched in administrator mode for correct removal of libraries")
 	err := os.Chdir("/opt/resolve/libs")
 	if err != nil {
 		return err
